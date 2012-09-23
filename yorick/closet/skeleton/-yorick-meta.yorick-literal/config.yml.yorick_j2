@@ -1,0 +1,8 @@
+description: {{description}}
+variables:
+  project_name:
+    description: Enter a name for your project
+  sample_variable:
+    description: Sample desccription
+    default: Default value if left blank # leaving this out makes this variable mandatory
+  # insert your variables here

@@ -1,0 +1,7 @@
+description: "Yo dawg, I herd u liek skeletons..."
+variables:
+  skeleton_name:
+    prompt: Enter a name for your skeleton.
+  closet:
+    prompt: no
+	default: __default__
