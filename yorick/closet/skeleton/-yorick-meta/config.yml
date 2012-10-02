@@ -4,4 +4,6 @@ variables:
     prompt: Enter a name for your skeleton.
   closet:
     prompt: no
-	default: __default__
+    default: __default__
+  description:
+    prompt: Enter a description for your skeleton.

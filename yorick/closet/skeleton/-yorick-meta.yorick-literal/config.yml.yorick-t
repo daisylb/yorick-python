@@ -1,4 +1,4 @@
-description: {{description}}
+description: {description}
 variables:
   project_name:
     description: Enter a name for your project
