@@ -15,6 +15,6 @@ setup(name='yorick',
 	],
 	entry_points = {
     'console_scripts':
-        ['yorick = yorick.cli:main'],
+        ['yorick = yorick.cli:app.run'],
 	},
 )
