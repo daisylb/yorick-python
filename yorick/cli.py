@@ -38,6 +38,7 @@ class Construct (object):
 	@staticmethod
 	def arg_parser(parser):
 		parser.add_argument('skeleton')
+		parser.add_argument('path', nargs='?', default=None)
 		
 	@staticmethod
 	def run(yorick, args):
@@ -49,4 +50,4 @@ class Construct (object):
 			print prefs['prompt']
 			values[name] = raw_input(name + '> ')
 		
-		s.construct(values)
+		s.construct(values, args.path)

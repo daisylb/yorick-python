@@ -52,17 +52,20 @@ class Skeleton (object):
 			self._conf = yaml.load(f)
 		return self._conf
 			
-	def construct(self, variables):
-		"""Construct the skeleton in the current working directory"""
+	def construct(self, variables, destination_root=None):
+		"""Construct the skeleton in `destination_root`, or the cwd if not given."""
 		for template_path, dirs, files in os.walk(self.dir):
 			relative_path = template_path.replace(self.dir, '', 1)
 			if relative_path.startswith(os.sep):
 				relative_path = relative_path.replace(os.sep, '', 1)
 			
-			# render names of all directories in the path
+			# construct the destination path
 			destination_path = relative_path.split(os.sep)
 			for i, el in enumerate(destination_path):
+				# render each path component's name
 				destination_path[i] = self.__render_pathname(el, variables)
+			if destination_root is not None:
+				destination_path.insert(0, destination_root)
 			destination_path = os.sep.join(destination_path)
 			
 			# skip over any directories called -yorick-meta
