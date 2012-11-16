@@ -1,4 +1,5 @@
 import argparse
+import os
 from .core import Yorick
 
 class _CliApp (object):
@@ -32,6 +33,23 @@ class _CliApp (object):
 		self.cmds[args.subcommand].run(y, args)
 
 app = _CliApp()
+
+@app.subcommand
+class Create_Skeleton (object):
+	@staticmethod
+	def arg_parser(parser):
+		parser.add_argument('name')
+	
+	@staticmethod
+	def run(yorick, args):
+		s = yorick.get_skeleton("yorick.skeleton")
+		skeleton_args = {
+			'name': args.name,
+			'description': "Example description",
+		}
+		path = os.path.sep.join((yorick.dir, '__default__', args.name))
+		s.construct(skeleton_args, path)
+		print "Your skeleton has been created at", path
 
 @app.subcommand
 class Construct (object):
