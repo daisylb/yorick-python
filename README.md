@@ -1,6 +1,8 @@
 # yorick: a project skeleton / template / boilerplate tool
 
-Whenever we start a programming project (or a book, or anything you do that involves files on a computer), we often end up doing the same initial steps, without much variation.
+*Yorick is a work in progress. Many of the features described here are not yet complete.* Currently, only the basics of the `construct` and `create-skeleton` commands work.
+
+Whenever you start a programming project (or a book, or anything you do that involves files on a computer), you often end up doing the same initial steps, without much variation.
 
 Yorick allows you to automate this by creating "skeletons" - templates that you can "construct" to create a boilerplate project. In the process of constructing, a skeleton can prompt the user for variables (project name, for instance), and have those variables substituted appropriately into the skeleton.
 
@@ -14,7 +16,7 @@ A collection of skeletons for different types of projects is called a "closet". 
 
 ## Usage
 
-### Constructing from a skeleton
+### Constructing a project from a skeleton
 
 Projects are constructed using the `yorick construct` command.
 
@@ -65,10 +67,17 @@ Open the `config.yml` file in the `-yorick-meta` directory. Here, you'll see two
 - The `description`. Fairly self-explanatory.
 - The `variables`. A list of variables that the user is prompted for when they construct a skeleton.
 
-Variables' behaviour can be adjusted by 
-
 #### File names
 
+When a skeleton is constructed, all of the files in the skeleton get processed.
+
+- Files or folders that end in `.yorick-literal` have that text removed from their file name, and their file names aren't processed further.
+- Files or folders that have a variable name surrounded by curly braces (e.g. `{name}.py`) have that variable substituted in (e.g. `my_awesome_project.py`).
+- Files or folders that have doubled up curly braces (`{{` or `}}`) have them converted to single curly braces (`{` or `}`).
+	- Note that having a single curly brace in a filename will cause an error, unless it is part of a variable substitution. So a file that should be output as `a{b.ext` *must* be named `a{{b.ext` in the template.
+- Folders called `-yorick-meta` will be ignored, as this is the name of the folder that holds Yorick skeleton metadata.
+	- If you need a `-yorick-meta` folder in your output (as the skeleton that builds Yorick skeletons does), use the `.yorick-literal` extension.
+	
 #### File Contents
 
 ### Installing somebody else's closet
