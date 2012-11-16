@@ -47,7 +47,8 @@ class Construct (object):
 		# prompt for values
 		values = {}
 		for name, prefs in s.conf['variables'].iteritems():
-			print prefs['prompt']
-			values[name] = raw_input(name + '> ')
+			if not prefs.get('prompt', True):
+				print prefs['prompt']
+				values[name] = raw_input(name + '> ')
 		
 		s.construct(values, args.path)
