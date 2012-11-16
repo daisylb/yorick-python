@@ -55,24 +55,28 @@ class Skeleton (object):
 	def construct(self, variables, destination_root=None):
 		"""Construct the skeleton in `destination_root`, or the cwd if not given."""
 		for template_path, dirs, files in os.walk(self.dir):
+			
+			# path relative to the skeleton root
 			relative_path = template_path.replace(self.dir, '', 1)
 			if relative_path.startswith(os.sep):
 				relative_path = relative_path.replace(os.sep, '', 1)
 			
-			# construct the destination path
+			# determine the destination path for this directory
 			destination_path = relative_path.split(os.sep)
 			for i, el in enumerate(destination_path):
 				# render each path component's name
 				destination_path[i] = self.__render_pathname(el, variables)
+			# prepend the destination root to the relative dest path
 			if destination_root is not None:
 				destination_path.insert(0, destination_root)
-			destination_path = os.sep.join(destination_path)
+			destination_path = os.path.sep.join(destination_path)
 			
 			# skip over any directories called -yorick-meta
 			for i, dir in enumerate(dirs):
 				if dir == '-yorick-meta':
 					del dirs[i]
 			
+			# make sure the directory exists
 			if destination_path != '':
 				os.makedirs(destination_path)
 			
