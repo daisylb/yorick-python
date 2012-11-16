@@ -15,7 +15,7 @@ setup(name='yorick',
 	long_description=get_long_desc(),
 	author='Adam Brenecki',
 	author_email='adam@brenecki.id.au',
-	url='',
+	url='https://github.com/adambrenecki/yorick',
 	packages=['.'.join(i[0].split(os.sep))
 		for i in os.walk('yorick')
 		if '__init__.py' in i[2]],
@@ -26,4 +26,14 @@ setup(name='yorick',
     'console_scripts':
         ['yorick = yorick.cli:app.run'],
 	},
+	classifiers = [
+		'Development Status :: 2 - Pre-Alpha',
+		'Environment :: Console',
+		'Intended Audience :: Developers',
+		'License :: OSI Approved :: MIT License',
+		'Natural Language :: English',
+		'Operating System :: OS Independent',
+		'Topic :: Software Development :: Build Tools',
+		'Topic :: Software Development :: Pre-processors',
+	]
 )
