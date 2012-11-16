@@ -4,9 +4,7 @@ class _RendererLibrary (object):
 	
 	def add(self, ext):
 		"""Decorator to add a renderer"""
-		print 'outer'
 		def inner(fun):
-			print 'inner'
 			self.renderers[ext] = fun
 			return fun
 		return inner
