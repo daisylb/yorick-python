@@ -1,6 +1,6 @@
-from setuptools import setup
-import os
+from setuptools import setup, find_packages
 import subprocess
+from yorick import __version__
 
 def get_long_desc():
 	"""Use Pandoc to convert the readme to ReST for the PyPI."""
@@ -10,15 +10,17 @@ def get_long_desc():
 		print "WARNING: The long readme wasn't converted properly"
 
 setup(name='yorick',
-	version='0.1pre',
+	version=__version__,
 	description='a project skeleton / template / boilerplate tool',
 	long_description=get_long_desc(),
 	author='Adam Brenecki',
 	author_email='adam@brenecki.id.au',
 	url='https://github.com/adambrenecki/yorick',
-	packages=['.'.join(i[0].split(os.sep))
-		for i in os.walk('yorick')
-		if '__init__.py' in i[2]],
+	packages=find_packages(),
+	include_package_data=True,
+	setup_requires=[
+		'setuptools_git>=0.3',
+	],
 	install_requires=[
 		'pyyaml'
 	],
