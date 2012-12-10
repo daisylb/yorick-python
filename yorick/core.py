@@ -82,11 +82,11 @@ class Skeleton (object):
 			
 			# process files
 			for file in files:
-				matchobj = match(r'(.*)\.yorick-.+', file)
+				matchobj = match(r'(.*)\.yorick-(.+)', file)
 				if matchobj:
 					with open(os.path.join(template_path, file)) as infile:
 						original_content = infile.read()
-						rendered_content = renderer_library['t'](original_content, variables)
+						rendered_content = renderer_library[matchobj.group(2)](original_content, variables)
 					file_outname = matchobj.group(1)
 					with open(os.path.join(destination_path, file_outname), 'w') as outfile:
 						outfile.write(rendered_content)
