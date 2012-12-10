@@ -48,38 +48,6 @@ By default, skeletons are taken from the folder `~/.yorick/__default__/`, called
 
 To construct a skeleton from a different closet, use the form `yorick construct <closet>.<skeleton-name>`. To construct a skeleton that is somewhere other than one of the closets in your `.yorick` directory, use the `-p` flag to specify a path to it, for example `yorick construct -p ~/blah/myskeleton`.
 
-### Creating a skeleton
-
-Use the `yorick create-skeleton` command to create a new skeleton.
-
-```
-$ yorick create-skeleton
-Enter a name for your skeleton.
-skeleton_name> eggs
-Constructing... Done.
-You can now edit your skeleton at ~/.yorick/__default__/eggs/
-```
-
-#### Configuration Files and Variables
-
-Open the `config.yml` file in the `-yorick-meta` directory. Here, you'll see two entries:
-
-- The `description`. Fairly self-explanatory.
-- The `variables`. A list of variables that the user is prompted for when they construct a skeleton.
-
-#### File names
-
-When a skeleton is constructed, all of the files in the skeleton get processed.
-
-- Files or folders that end in `.yorick-literal` have that text removed from their file name, and their file names aren't processed further.
-- Files or folders that have a variable name surrounded by curly braces (e.g. `{name}.py`) have that variable substituted in (e.g. `my_awesome_project.py`).
-- Files or folders that have doubled up curly braces (`{{` or `}}`) have them converted to single curly braces (`{` or `}`).
-	- Note that having a single curly brace in a filename will cause an error, unless it is part of a variable substitution. So a file that should be output as `a{b.ext` *must* be named `a{{b.ext` in the template.
-- Folders called `-yorick-meta` will be ignored, as this is the name of the folder that holds Yorick skeleton metadata.
-	- If you need a `-yorick-meta` folder in your output (as the skeleton that builds Yorick skeletons does), use the `.yorick-literal` extension.
-	
-#### File Contents
-
 ### Installing somebody else's closet
 
 Closets are shared as Git repositories or tarballs, and added with the `yorick install-closet` command. They can be updated with the `yorick update-closets` command.
