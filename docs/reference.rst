@@ -1,28 +1,7 @@
-Writing a Yorick skeleton
+Yorick skeleton reference
 =========================
 
-Use the ``yorick create-skeleton`` command to create a new skeleton. In this example, we'll create a skeleton called ``eggs``.
-
-::
-
-	$ yorick create-skeleton
-	Enter a name for your skeleton.
-	skeleton_name> eggs
-	Constructing... Done.
-	You can now edit your skeleton at ~/.yorick/__default__/eggs/
-	
-Go ahead and open that directory in your favourite text editor.
-
-Configuration Files and Variables
----------------------------------
-
-Open the file ``-yorick-meta/config.yml``.
-
-.. todo::
-
-	finish this
-
-File names
+File Names
 ----------
 
 When the skeleton is built, the name of each file and directory is processed according to a set of rules. (Note that these rules apply to files **and** directories.)
@@ -33,6 +12,7 @@ When the skeleton is built, the name of each file and directory is processed acc
 	- Filenames with unmatched curly brackets will cause an error unless they're doubled-up.
 - If a file's entire name is ``-yorick-meta``, it is skipped over. (The reason for this, as we saw previously, is that metadata for your skeleton is stored in this directory.)
 - If a filename ends with ``.yorick-literal``, that bit is removed from the file name. The file name is then not processed any further, so none of the other rules on this list apply to it.
+- Finally, if a filename ends with ``.yorick-<something>`` (where ``<something>`` is anything other than ``literal``), it is processed as described in the following section, and that part of the filename is removed. Unlike ``.yorick-literal``, the rest of the rules in this list do apply.
 
 If we had a skeleton with one variable called ``name``, and we constructed it setting its value to ``spam``, here's how files or directories in the skeleton would be processed:
 
@@ -50,6 +30,9 @@ Name of file/directory in skeleton     Name of output file
 ``-yorick-meta.yorick-literal``        ``-yorick-meta``
 ``eggs.yorick-literal``                ``eggs``
 ``eggs.yorick-literal.yorick-literal`` ``eggs.yorick-literal``
+``name.py.yorick-j2``                  ``name.py`` (file contents processed with ``j2`` engine)
+``{name}.py.yorick-t``                 ``spam.py`` (file contents processed with ``t`` engine)
+``{name}.py.yorick-t.yorick-literal``                 ``{name}.py.yorick-t`` (file contents copied verbatim)
 ====================================== ===================
 
 
