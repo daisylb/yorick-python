@@ -22,7 +22,8 @@ setup(name='yorick',
 		'setuptools_git>=0.3',
 	],
 	install_requires=[
-		'pyyaml'
+		'pyyaml',
+		'jinja2',
 	],
 	entry_points = {
     'console_scripts':
