@@ -16,12 +16,22 @@ A collection of skeletons for different types of projects is called a "closet". 
 
 ## Usage
 
-### Constructing a project from a skeleton
+These are just usage examples to show you what the command line interface looks like. If you want to dive in, check out the docs on [ReadTheDocs](https://yorick.readthedocs.org/).
 
-Projects are constructed using the `yorick construct` command.
+### Create a new skeleton
 
 ```
-$ yorick construct example
+$ yorick create-skeleton eggs
+Constructing... Done.
+You can now edit your skeleton at ~/.yorick/__default__/eggs/
+
+$ my-favorite-editor ~/.yorick/__default__/eggs/
+```
+
+### Construct a project from a skeleton
+
+```
+$ yorick construct eggs
 Enter a name for your project.
 project_name> spam
 Constructing... Done.
@@ -37,28 +47,34 @@ $ cat README.md
 Insert a readme for spam here.
 ```
 
-Instead of being prompted for variables interactively, you can specify them on the command line.
+### Share your skeletons with the world
 
 ```
-$ yorick construct example project_name=spam
+$ cd ~/.yorick/__default__
+$ git init .
+$ git add .
+$ git commit -m "Initial commit"
+$ git origin add master https://github.com/joe/closet.git
+$ git push -u origin master
+```
+
+### Install closets from other people...
+
+```
+$ yorick install-closet fred https://github.com/fred/closet.git
+Closet cloned to ~/.yorick/fred/
+
+$ yorick update-closet fred
+Updating... fred was already up to date.
+```
+
+### ...and use their skeletons
+
+```
+$ yorick construct fred.more_eggs
+Enter a name for your project.
+project_name> spam
 Constructing... Done.
-```
-
-By default, skeletons are taken from the folder `~/.yorick/__default__/`, called the default closet. (So, the `example` skeleton would be at `~/.yorick/__default__/example/`.)
-
-To construct a skeleton from a different closet, use the form `yorick construct <closet>.<skeleton-name>`. To construct a skeleton that is somewhere other than one of the closets in your `.yorick` directory, use the `-p` flag to specify a path to it, for example `yorick construct -p ~/blah/myskeleton`.
-
-### Installing somebody else's closet
-
-Closets are shared as Git repositories or tarballs, and added with the `yorick install-closet` command. They can be updated with the `yorick update-closets` command.
-
-```
-$ yorick install-closet --git http://github.com/adambrenecki/yorick-closet abre
-Waiting on VCS... Done.
-You can now install a skeleton from this closet by running 'yorick construct abre.<skeleton-name>'
-
-$ yorick update-closets
-Updating abre... Done.
 ```
 
 ## To Do
