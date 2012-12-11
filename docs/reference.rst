@@ -1,6 +1,13 @@
 Yorick skeleton reference
 =========================
 
+Variable Properties
+-------------------
+
+- ``prompt`` - The text to present to the user when asking for the value of this variable. If this value is omitted, the user won't be prompted at all, and the only way to provide a value for this variable will be on the command line.
+- ``default`` - The default value to use if one isn't given. If this is omitted, the variable will be mandatory.
+- ``type`` - The type of value this variable will store. Valid types are ``string`` (the default), ``integer``, ``decimal`` and ``boolean``.
+
 File Names
 ----------
 
