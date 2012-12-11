@@ -11,8 +11,10 @@ Contents:
 .. toctree::
    :maxdepth: 2
    
+   construct
    tutorial
    reference
+   share
 
 
 Indices and tables
