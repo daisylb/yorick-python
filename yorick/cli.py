@@ -61,13 +61,20 @@ class Construct (object):
 	@staticmethod
 	def run(yorick, args):
 		s = yorick.get_skeleton(args.skeleton)
-		
-		# prompt for values
-		values = {}
-		for name, prefs in s.conf['variables'].iteritems():
-			print prefs
-			if prefs.get('prompt', False):
-				print prefs['prompt']
-				values[name] = raw_input(name + '> ')
-		
-		s.construct(values, args.path)
+		vars = s.variables
+		# prompt
+		cli_prompt(vars)	
+		s.construct(vars, args.path)
+
+def cli_prompt(varset):
+	for v in varset.all_promptable():
+		print v.prompt
+		while True:
+			try:
+				v.value = raw_input(v.name + "> ")
+			except ValueError as e:
+				print "Error: " + e.message
+			else:
+				break
+			
+			

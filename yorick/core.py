@@ -5,6 +5,7 @@ from re import match
 from shutil import copy
 import yaml
 from .renderers import library as renderer_library
+from .variables import VariableSet
 
 class Yorick (object):
 	def __init__(self):
@@ -51,9 +52,20 @@ class Skeleton (object):
 		with open(os.path.sep.join((self.dir, '-yorick-meta', 'config.yml'))) as f:
 			self._conf = yaml.load(f)
 		return self._conf
+	
+	@property
+	def variables(self):
+		"""Returns a VariableSet of this skeleton's variables.
+		
+		Note that this returns a new set each time, you'll have to keep them somewhere
+		else to retain the values.
+		"""
+		return VariableSet(self.conf['variables'])
 			
 	def construct(self, variables, destination_root=None):
 		"""Construct the skeleton in `destination_root`, or the cwd if not given."""
+		variable_dict = variables.as_dict()
+		
 		for template_path, dirs, files in os.walk(self.dir):
 			
 			# path relative to the skeleton root
@@ -65,7 +77,7 @@ class Skeleton (object):
 			destination_path = relative_path.split(os.sep)
 			for i, el in enumerate(destination_path):
 				# render each path component's name
-				destination_path[i] = self.__render_pathname(el, variables)
+				destination_path[i] = self.__render_pathname(el, variable_dict)
 			# prepend the destination root to the relative dest path
 			if destination_root is not None:
 				destination_path.insert(0, destination_root)
@@ -86,17 +98,17 @@ class Skeleton (object):
 				if matchobj:
 					with open(os.path.join(template_path, file)) as infile:
 						original_content = infile.read()
-						rendered_content = renderer_library[matchobj.group(2)](original_content, variables)
+						rendered_content = renderer_library[matchobj.group(2)](original_content, variable_dict)
 					file_outname = matchobj.group(1)
 					with open(os.path.join(destination_path, file_outname), 'w') as outfile:
 						outfile.write(rendered_content)
 				else:
 					copy(os.path.join(template_path, file), os.path.join(destination_path, file))
 	
-	def __render_pathname(self, pathname, variables):
+	def __render_pathname(self, pathname, variable_dict):
 		if pathname.endswith('.yorick-literal'):
 			# reverse, do the replacement, put back again
 			return pathname[::-1].replace('.yorick-literal'[::-1], '', 1)[::-1]
 		else:
 			# perform path name substitution
-			return pathname.format(**variables)
+			return pathname.format(**variable_dict)
