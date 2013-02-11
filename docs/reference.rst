@@ -18,7 +18,7 @@ When the skeleton is built, the name of each file and directory is processed acc
 - If a filename contains doubled-up curly brackets, they are replaced with single curly brackets.
 	- Filenames with unmatched curly brackets will cause an error unless they're doubled-up.
 - If a file's entire name is ``-yorick-meta``, it is skipped over. (The reason for this, as we saw previously, is that metadata for your skeleton is stored in this directory.)
-- If a filename ends with ``.yorick-literal``, that bit is removed from the file name. The file name is then not processed any further, so none of the other rules on this list apply to it.
+- If a filename ends with ``.yorick-literal``, that bit is removed from the file name. The file name is then not processed any further, so none of the other rules on this list apply to it. (This is useful for filenames that would otherwise have special meaning to Yorick (e.g. with curly braces) or to other programs like Git (eg a ``.gitignore`` that is part of the template)
 - Finally, if a filename ends with ``.yorick-<something>`` (where ``<something>`` is anything other than ``literal``), it is processed as described in the following section, and that part of the filename is removed. Unlike ``.yorick-literal``, the rest of the rules in this list do apply.
 
 If we had a skeleton with one variable called ``name``, and we constructed it setting its value to ``spam``, here's how files or directories in the skeleton would be processed:
@@ -39,7 +39,7 @@ Name of file/directory in skeleton     Name of output file
 ``eggs.yorick-literal.yorick-literal`` ``eggs.yorick-literal``
 ``name.py.yorick-j2``                  ``name.py`` (file contents processed with ``j2`` engine)
 ``{name}.py.yorick-t``                 ``spam.py`` (file contents processed with ``t`` engine)
-``{name}.py.yorick-t.yorick-literal``                 ``{name}.py.yorick-t`` (file contents copied verbatim)
+``{name}.py.yorick-t.yorick-literal``  ``{name}.py.yorick-t`` (file contents copied verbatim)
 ====================================== ===================
 
 
