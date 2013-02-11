@@ -89,7 +89,7 @@ class Skeleton (object):
 					del dirs[i]
 			
 			# make sure the directory exists
-			if destination_path != '':
+			if destination_path != '' and not os.path.exists(destination_path):
 				os.makedirs(destination_path)
 			
 			# process files

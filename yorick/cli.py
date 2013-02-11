@@ -43,12 +43,11 @@ class Create_Skeleton (object):
 	@staticmethod
 	def run(yorick, args):
 		s = yorick.get_skeleton("yorick.skeleton")
-		skeleton_args = {
-			'name': args.name,
-			'description': "Example description",
-		}
+		vars = s.variables
+		vars.skeleton_name.value = args.name
+		vars.description.value = "Example description"
 		path = os.path.sep.join((yorick.dir, '__default__', args.name))
-		s.construct(skeleton_args, path)
+		s.construct(vars, path)
 		print "Your skeleton has been created at", path
 
 @app.subcommand
