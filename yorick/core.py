@@ -61,10 +61,16 @@ class Skeleton (object):
 		else to retain the values.
 		"""
 		return VariableSet(self.conf['variables'])
+
+	def _run_script(self, script_name, *args):
+		pass
 			
 	def construct(self, variables, destination_root=None):
 		"""Construct the skeleton in `destination_root`, or the cwd if not given."""
 		variable_dict = variables.as_dict()
+
+		# Run pre-construct scripts
+		variable_dict = self._run_script('pre_construct', variable_dict)
 		
 		for template_path, dirs, files in os.walk(self.dir):
 			

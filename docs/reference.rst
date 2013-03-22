@@ -55,3 +55,44 @@ Name of file/directory in skeleton     Name of output file
 
 File Contents
 -------------
+
+Hooks
+-------
+
+Hooks allow you to write code to perform arbitrary tasks at certain events in Yorick's execution cycle.
+
+Python
+``````
+
+Python hooks should be implemented within the file ``-yorick-meta/hooks.py``, as functions with the hook name as the function name.
+
+Hooks should raise ``yorick.hooks.HookError`` on error.
+
+For example, the following ``hooks.py`` checks that the ``banana`` variable starts with the letter ``B``:
+
+::
+    from yorick.hooks import HookError
+
+    def pre_construct(vars):
+        if not vars['banana'].startswith('B'):
+            raise HookError("`banana` must start with `B`")
+        return vars
+
+Shell
+`````
+
+Shell hooks are executable files placed within the ``-yorick-meta/hooks/`` directory. For instance, to run a hook on the ``pre-construct`` event, place it at ``-yorick-meta/hooks/pre-construct``. An optional file extension is also allowed.
+
+Hooks must terminate with a nonzero return code on error. In such a case, Yorick will display the hook's standard output to the user.
+
+Hooks can be written in any scripting language. On Mac OS X and Linux, they will be run with ``sh``; on Windows, with their filetype's default handler. For this reason, it is recommended that they be named with the appropriate extension **and** contain an appropriate shebang line. (For example, a Ruby pre-construct hook should be named ``pre-construct.rb`` and begin like ``#!/usr/bin/env ruby``).
+
+Hook List
+`````````
+
+- ``pre-construct`` - Run before the skeleton is constructed. Can perform validation on the variables, or other such tasks.
+  - Python: Takes a dictionary of the variables and their values. Must return that dictionary, which may be modified.
+  - Shell: Takes a JSON-formatted object of the variables and their values on standard input. Must output a JSON-formatted object of variables and their values, optionally modified.
+- ``post-construct`` - Run after the skeleton is constructed. Can perform post-construction clean-up or other such tasks.
+  - Python: Takes a dictionary of the variables and their values. Return value ignored.
+  - Shell: Takes a JSON-formatted object of the variables and their values on standard input. Output ignored.
