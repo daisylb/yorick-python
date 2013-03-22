@@ -1,6 +1,7 @@
 import argparse
 import os
 from .core import Yorick
+from uuid import uuid4
 
 class _CliApp (object):
 	def __init__(self):
@@ -46,6 +47,7 @@ class Create_Skeleton (object):
 		vars = s.variables
 		vars.skeleton_name.value = args.name
 		vars.description.value = "Example description"
+		vars.id.value = str(uuid4())
 		path = os.path.sep.join((yorick.dir, '__default__', args.name))
 		s.construct(vars, path)
 		print "Your skeleton has been created at", path

@@ -1,3 +1,4 @@
+id: {id}
 description: {description}
 variables:
   project_name:

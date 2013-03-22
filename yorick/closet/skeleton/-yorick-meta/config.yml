@@ -7,3 +7,5 @@ variables:
     default: __default__
   description:
     prompt: Enter a description for your skeleton.
+  id:
+    prompt: Enter a UUID for your skeleton.
