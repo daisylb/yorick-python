@@ -1,6 +1,16 @@
 Yorick skeleton reference
 =========================
 
+Skeleton Properties
+-------------------
+
+These are the properties that go in ``-yorick-meta/config.yml``.
+
+- ``id`` - A UUID for the skeleton. This should be generated for you by ``yorick create-skeleton``, and you shouldn't change it unless you're creating a new skeleton by copying a different one.
+- ``description`` - A description for the skeleton.
+- ``variables`` - A dictionary of variables, as specified in the Variable Properties section below.
+- ``excluded_files`` - A list of files to skip over completely in the generation process.
+
 Variable Properties
 -------------------
 

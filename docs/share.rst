@@ -7,7 +7,7 @@ Closets are shared as Git repositories or tar balls, and added with the `yorick 
 
 	$ yorick install-closet --git http://github.com/adambrenecki/yorick-closet abre
 	Waiting on VCS... Done.
-	You can now install a skeleton from this closet by running 'yorick construct bare.<skeleton-name>'
+	You can now install a skeleton from this closet by running 'yorick construct abre.<skeleton-name>'
 	
 	$ yorick update-closets
 	Updating abre... Done.
