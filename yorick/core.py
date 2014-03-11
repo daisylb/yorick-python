@@ -60,12 +60,18 @@ class Skeleton (object):
         Note that this returns a new set each time, you'll have to keep them somewhere
         else to retain the values.
         """
-        return VariableSet(self.conf['variables'])
+        return VariableSet(self.conf['id'], self.conf['variables'])
             
     def construct(self, variables, destination_root=None):
         """Construct the skeleton in `destination_root`, or the cwd if not given."""
         variable_dict = variables.as_dict()
         
+        # write variables in the root directory
+        if not os.path.exists(destination_root):
+            os.makedirs(destination_root)
+        with open(os.path.join(destination_root, '.yorick-data'), 'w') as f:
+            f.write(variables.serialise())
+
         for template_path, dirs, files in os.walk(self.dir):
             
             # path relative to the skeleton root

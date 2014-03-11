@@ -24,6 +24,7 @@ setup(name='yorick',
     install_requires=[
         'pyyaml',
         'jinja2',
+        'u-msgpack-python',
     ],
     entry_points = {
     'console_scripts':

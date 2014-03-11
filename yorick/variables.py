@@ -1,7 +1,10 @@
+import umsgpack
+
 class VariableSet (object):
     _vars = {} # list of variables
     
-    def __init__(self, spec):
+    def __init__(self, id, spec):
+        self._id = id
         self._vars = {}
         for name, props in spec.iteritems():
             v = Variable(name, props)
@@ -34,6 +37,11 @@ class VariableSet (object):
     
     def as_dict(self):
         return {v.name: v.value for v in self}
+
+    def serialise(self):
+        as_dict = self.as_dict()
+        as_dict['__id__'] = self._id
+        return umsgpack.packb(as_dict)
 
 class Variable (object):
     name = '' # variable name
