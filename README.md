@@ -8,6 +8,14 @@ Yorick allows you to automate this by creating "skeletons" - templates that you 
 
 A collection of skeletons for different types of projects is called a "closet". Yorick automatically gives you a default closet to keep all of your own skeletons in, and the ability to add other people's closets alongside it. You can keep your closet to yourself or open it up to the world on GitHub (a bit like dotfiles).
 
+## Features
+
+TODO: expand list
+
+- Pluggable template engine support
+- Global and in-skeleton hooks
+- Update your project if the skeleton changes
+
 ## Installation
 
 1. You need to have Python installed. (If you're not a Python programmer, don't worry, you can create and use yorick skeletons without writing a single line of Python.)
