@@ -36,10 +36,10 @@ Enter a name for your project.
 project_name> spam
 Constructing... Done.
 
-$ find .
-./spam/
-./spam/__init__.py
-./README.md
+$ tree .
+├── spam
+│   └── __init__.py
+└── README.md
 
 $ cat README.md
 # spam
